@@ -1,0 +1,24 @@
+<%= render 'shared/topnav' %>
+<h1>Listing products of category <%= @category.name %></h1>
+<% @products.in_groups_of(3).each do |products| %>
+<% products.select! {|x| !x.nil?} %>
+  <div class='row'>
+    <% products.each do |product| %>
+      <div class='col-md-4'>
+        <div class="thumbnail">
+            <img src= <%= product.thumburl %> >
+            <div class="caption">
+              <span class="listing-name"><%= product.product_name %></span>
+              <span class="listing-name"><%= product.description %></span>
+              <span><%= link_to "Edit", edit_products_path(product.id) %></span>
+              <span><%= link_to "Delete", products_delete_path(:id => product.id) %></span>
+            </div>
+          </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<br>
+
+<%= link_to 'New Product', new_product_path %>
+<%= render 'shared/footer' %>
